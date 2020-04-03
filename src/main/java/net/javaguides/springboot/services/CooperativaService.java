@@ -1,4 +1,4 @@
-package net.javaguides.springboot.controller;
+package net.javaguides.springboot.services;
 
 import java.util.List;
 
