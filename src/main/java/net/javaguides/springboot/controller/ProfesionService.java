@@ -1,4 +1,4 @@
-package net.javaguides.springboot.services;
+package net.javaguides.springboot.controller;
 
 import java.util.HashMap;
 import java.util.List;
