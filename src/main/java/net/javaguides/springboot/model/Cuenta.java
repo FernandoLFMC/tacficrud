@@ -10,7 +10,7 @@ import javax.persistence.Table;
 public class Cuenta {
 	
 	@Id
-	private int id_cuenta;
+	private long id_cuenta;
 	@Column(name = "descripcion_cuenta")
 	private String descripcion_cuenta;
 	
@@ -18,15 +18,15 @@ public class Cuenta {
 	public Cuenta() {
 		super();
 	}
-	public Cuenta(int id_cuenta, String descripcion_cuenta) {
+	public Cuenta(long id_cuenta, String descripcion_cuenta) {
 		super();
 		this.id_cuenta = id_cuenta;
 		this.descripcion_cuenta = descripcion_cuenta;
 	}
-	public int getId_cuenta() {
+	public long getId_cuenta() {
 		return id_cuenta;
 	}
-	public void setId_cuenta(int id_cuenta) {
+	public void setId_cuenta(long id_cuenta) {
 		this.id_cuenta = id_cuenta;
 	}
 	public String getDescripcion_cuenta() {

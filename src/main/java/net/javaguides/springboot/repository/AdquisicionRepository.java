@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import net.javaguides.springboot.model.Adquisicion;
 
 @Repository
-public interface AdquisicionRepository extends JpaRepository<Adquisicion, Long>{
+public interface AdquisicionRepository extends JpaRepository<Adquisicion, String>{
 
 }
