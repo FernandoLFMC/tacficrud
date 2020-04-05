@@ -33,7 +33,7 @@ public class SeccionService {
 	}
 	
 	@GetMapping("seccion/{id}")
-	public ResponseEntity<Seccion> getSeccionById(@PathVariable(value = "id") Long seccionId)
+	public ResponseEntity<Seccion> getSeccionById(@PathVariable(value = "id") String seccionId)
 			throws ResourceNotFoundException {
 		Seccion seccion = seccionRepository.findById(seccionId)
 				.orElseThrow(() -> new ResourceNotFoundException("Seccion no encontrada para esta identificacion : : " + seccionId));
@@ -46,17 +46,17 @@ public class SeccionService {
 	}
 
 	@PutMapping("seccion/{id}")
-	public ResponseEntity<Seccion> updateSeccion(@PathVariable(value = "id") Long seccionId,
+	public ResponseEntity<Seccion> updateSeccion(@PathVariable(value = "id") String seccionId,
 			@Valid Seccion seccionDetails) throws ResourceNotFoundException {
 		Seccion seccion = seccionRepository.findById(seccionId)
 				.orElseThrow(() -> new ResourceNotFoundException("Seccion no encontrada para esta identificacion : : " + seccionId));
 
-		seccion.setNombre_seccion(seccion.getNombre_seccion());
+		seccion.setNombre_seccion(seccionDetails.getNombre_seccion());
 		return ResponseEntity.ok(this.seccionRepository.save(seccion));
 	}
 
 	@DeleteMapping("seccion/{id}")
-	public Map<String, Boolean> deleteSeccion(@PathVariable(value = "id") Long seccionId)
+	public Map<String, Boolean> deleteSeccion(@PathVariable(value = "id") String seccionId)
 			throws ResourceNotFoundException {
 		Seccion seccion = seccionRepository.findById(seccionId)
 				.orElseThrow(() -> new ResourceNotFoundException("Seccion no encontrada para esta identificacion : : " + seccionId));

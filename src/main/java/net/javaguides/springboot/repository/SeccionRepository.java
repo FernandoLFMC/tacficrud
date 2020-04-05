@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import net.javaguides.springboot.model.Seccion;
 
 @Repository
-public interface SeccionRepository extends JpaRepository<Seccion, Long>{
+public interface SeccionRepository extends JpaRepository<Seccion, String>{
 
 }
