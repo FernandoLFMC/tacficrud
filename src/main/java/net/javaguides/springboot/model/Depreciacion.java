@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class Depreciacion {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY,generator = "id_depre")
 	private long id_depre;
 	@Column(name = "id_activo")
 	private int id_activo;
@@ -23,7 +23,7 @@ public class Depreciacion {
 	@Column(name = "depreciacion_mensual")
 	private float depreciacion_mensual;
 	@Column(name = "total_mes_transcurrido")
-	private int total_mes_transcurridos;
+	private int total_mes_transcurrido;
 	@Column(name = "depreciacion_acumulada_afecha")
 	private float depreciacion_acumulada_afecha;
 	@Column(name = "total_depreciacion_afecha")
@@ -36,7 +36,7 @@ public class Depreciacion {
 		super();
 	}
 	public Depreciacion(long id_depre, int id_activo, float valor_contabilizado_afecha, float porcentaje_depreciacion,
-			float depreciacion_mensual, int total_mes_transcurridos, float depreciacion_acumulada_afecha,
+			float depreciacion_mensual, int total_mes_transcurrido, float depreciacion_acumulada_afecha,
 			float total_depreciacion_afecha, float valor_neto_afecha) {
 		super();
 		this.id_depre = id_depre;
@@ -44,7 +44,7 @@ public class Depreciacion {
 		this.valor_contabilizado_afecha = valor_contabilizado_afecha;
 		this.porcentaje_depreciacion = porcentaje_depreciacion;
 		this.depreciacion_mensual = depreciacion_mensual;
-		this.total_mes_transcurridos = total_mes_transcurridos;
+		this.total_mes_transcurrido = total_mes_transcurrido;
 		this.depreciacion_acumulada_afecha = depreciacion_acumulada_afecha;
 		this.total_depreciacion_afecha = total_depreciacion_afecha;
 		this.valor_neto_afecha = valor_neto_afecha;
@@ -79,11 +79,11 @@ public class Depreciacion {
 	public void setDepreciacion_mensual(float depreciacion_mensual) {
 		this.depreciacion_mensual = depreciacion_mensual;
 	}
-	public int getTotal_mes_transcurridos() {
-		return total_mes_transcurridos;
+	public int getTotal_mes_transcurrido() {
+		return total_mes_transcurrido;
 	}
-	public void setTotal_mes_transcurridos(int total_mes_transcurridos) {
-		this.total_mes_transcurridos = total_mes_transcurridos;
+	public void setTotal_mes_transcurrido(int total_mes_transcurrido) {
+		this.total_mes_transcurrido = total_mes_transcurrido;
 	}
 	public float getDepreciacion_acumulada_afecha() {
 		return depreciacion_acumulada_afecha;

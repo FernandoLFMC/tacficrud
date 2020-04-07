@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class Activo {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY,generator = "id_activo")
 	private long id_activo;
 	@Column(name = "id_cuenta")
 	private int id_cuenta;

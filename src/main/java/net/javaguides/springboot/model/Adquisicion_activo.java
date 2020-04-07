@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class Adquisicion_activo {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY,generator = "id_adq_ac")
 	private long id_adq_ac;
 	@Column(name = "id_activo")
 	private int id_activo;
