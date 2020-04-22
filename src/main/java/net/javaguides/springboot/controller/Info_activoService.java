@@ -55,9 +55,6 @@ public class Info_activoService {
 				.orElseThrow(() -> new ResourceNotFoundException("Informacion de acivo no existe para este id :: " + info_activoId));
 
 
-		
-		info_activo.setCod_seccion(info_activoDetails.getCod_seccion());
-		info_activo.setId_funcionario(info_activoDetails.getId_funcionario());
 		info_activo.setFecha_movimiento(info_activoDetails.getFecha_movimiento());
 		info_activo.setEstado_op_nop(info_activoDetails.getEstado_op_nop());
 		info_activo.setMotivo(info_activoDetails.getMotivo());

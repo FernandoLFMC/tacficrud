@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import net.javaguides.springboot.exception.ResourceNotFoundException;
 import net.javaguides.springboot.model.Activo;
+import net.javaguides.springboot.model.Cuenta;
 import net.javaguides.springboot.repository.ActivoRepository;
+import net.javaguides.springboot.repository.CuentaRepository;
 
 @RestController
 @RequestMapping("/api/v1/")
@@ -26,11 +28,22 @@ public class ActivoService {
 	
 	@Autowired
 	private ActivoRepository activoRepository;
+	@Autowired
+	private CuentaRepository cuentaRepository;
+	
+
 	
 	@GetMapping("activo")
-	public List<Activo> getAllActivos(){
+	public List<Activo> getAllActivos(Activo acivo){
 		return this.activoRepository.findAll();
 	}
+	
+
+	@GetMapping("activoo")
+	public List<Cuenta> getAllCuentas(){
+		return this.cuentaRepository.findAll();
+	}
+	
 	
 
 	@GetMapping("activo/{id}")
@@ -40,10 +53,21 @@ public class ActivoService {
 				.orElseThrow(() -> new ResourceNotFoundException("Activo no existe para este id :: " + activoId));
 		return ResponseEntity.ok().body(activo);
 	}
+	
+	
+	/*@GetMapping("activ/{id}")
+	public ResponseEntity<Optional<Activo>> getActivById(@PathVariable(value = "id") Long activoId)
+			{
+		Optional<Activo> activo = activoRepository.findById(activoId);
+		if(activo.isPresent())
+			return ResponseEntity.ok().body(activo);
+		else
+			return null ;
 
+	}*/
 
 	@PostMapping("activo")
-	public Activo createActivo(Activo activo) {
+	public Activo createActivo( Activo activo) {
 		return activoRepository.save(activo);
 	}
 
@@ -57,6 +81,8 @@ public class ActivoService {
 
 		activo.setId_cuenta(activoDetails.getId_cuenta());
 		activo.setCod_tipo(activoDetails.getCod_tipo());
+		activo.setCod_seccion(activoDetails.getCod_seccion());
+		activo.setId_funcionario(activoDetails.getId_funcionario());
 		activo.setNombre_tipo(activoDetails.getNombre_tipo());
 		activo.setDescripcion(activoDetails.getDescripcion());
 		activo.setUnidad(activoDetails.getUnidad());

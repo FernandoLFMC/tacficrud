@@ -1,14 +1,21 @@
 package net.javaguides.springboot.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 
 @Entity
 @Table
-public class Mobiliarioenseres {
+public class Mobiliarioenseres implements Serializable{
 	
+
+
 	@Id
 	private long id_activo;
 	@Column(name = "material")
@@ -16,6 +23,11 @@ public class Mobiliarioenseres {
 	@Column(name = "color")
 	private String color;
 	
+	@OneToOne(targetEntity = Activo.class, optional = false)
+	@JoinColumn(name = "id_activo", nullable = false)
+	private Activo activo;
+
+
 	public Mobiliarioenseres() {
 		super();
 	}
@@ -44,5 +56,11 @@ public class Mobiliarioenseres {
 		this.color = color;
 	}
 	
+	@Override
+	public String toString() {
+		return "Mobiliarioenseres [id_activo=" + id_activo + ", material=" + material + ", color=" + color + "]";
+	}
+	
+	private static final long serialVersionUID = 1L;
 
 }

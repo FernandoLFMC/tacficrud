@@ -1,5 +1,7 @@
 package net.javaguides.springboot.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,8 +9,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "seccion")
-public class Seccion {
+public class Seccion implements Serializable{
 	
+
+	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "cod_seccion")
 	private String cod_seccion;
