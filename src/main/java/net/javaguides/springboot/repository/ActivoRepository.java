@@ -13,10 +13,10 @@ import net.javaguides.springboot.model.Activo;
 @Repository
 public interface ActivoRepository extends JpaRepository<Activo, Serializable>{
 
-	   @Query("SELECT new net.javaguides.springboot.dto.SelectActivo(a.nombre_tipo , i.motivo) FROM Activo a JOIN a.info_activo i")
+	   @Query("SELECT new net.javaguides.springboot.dto.SelectActivo(a.cod_tipo,a.id_cuenta,i.funcionario_anterior, i.seccion_anterior, i.fecha_movimiento,i.motivo, a.id_funcionario,a.cod_seccion) FROM Activo a JOIN a.info_activo i")
 	    public List<SelectActivo> getJoinInformation();
 	   
-	   @Query("SELECT NEW net.javaguides.springboot.dto.SelectActivo(id_cuenta, cod_tipo, descripcion, unidad )from Activo")
+	   @Query("SELECT NEW net.javaguides.springboot.dto.SelectActivo(id_cuenta, id_coop, cod_tipo, cod_seccion, id_funcionario )from Activo")
 	   public List<SelectActivo> getSelect();
 	   
 	   

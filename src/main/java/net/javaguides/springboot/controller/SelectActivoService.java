@@ -17,14 +17,14 @@ public class SelectActivoService {
 	@Autowired
 	private ActivoRepository activoRepository;
 	
-    @GetMapping("getInfo")
+    @GetMapping("getinfo")
     public List<SelectActivo> getJoinInformation(){
         return activoRepository.getJoinInformation();
     }
     
-    @GetMapping("getSelect")
+    @GetMapping("etiqueta")
     public List<SelectActivo> getSelect(){
         return activoRepository.getSelect();
     }
-
+    
 }

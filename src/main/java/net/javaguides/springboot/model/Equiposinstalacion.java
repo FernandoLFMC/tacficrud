@@ -3,6 +3,8 @@ package net.javaguides.springboot.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +25,10 @@ public class Equiposinstalacion {
 	private String industria;
 	@Column(name = "modelo")
 	private String modelo;
+	
+	@OneToOne(targetEntity = Activo.class, optional = false)
+	@JoinColumn(name = "id_activo", nullable = false)
+	private Activo activo;
 	
 	public Equiposinstalacion() {
 		super();

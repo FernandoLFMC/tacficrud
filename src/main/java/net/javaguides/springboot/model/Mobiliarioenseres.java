@@ -56,6 +56,8 @@ public class Mobiliarioenseres implements Serializable{
 		this.color = color;
 	}
 	
+	
+
 	@Override
 	public String toString() {
 		return "Mobiliarioenseres [id_activo=" + id_activo + ", material=" + material + ", color=" + color + "]";

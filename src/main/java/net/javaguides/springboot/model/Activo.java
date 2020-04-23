@@ -49,15 +49,38 @@ public class Activo implements Serializable{
 	private List<Info_activo> info_activo;
 	
 	@OneToOne(targetEntity = Mobiliarioenseres.class,
-			cascade = CascadeType.REMOVE,
+			cascade = CascadeType.ALL,
 			mappedBy = "activo")
 	private Mobiliarioenseres Mobiliarioenseres;
 	
 	@OneToOne(targetEntity = Equiposcomputacion.class,
-			cascade = CascadeType.REMOVE,
+			cascade = CascadeType.ALL,
 			mappedBy = "activo")
 	private Equiposcomputacion equiposcomputacion;
+	
+	@OneToOne(targetEntity = Equiposinstalacion.class,
+			cascade = CascadeType.ALL,
+			mappedBy = "activo")
+	private Equiposinstalacion equiposinstalacion;
+	
+	@OneToOne(targetEntity = Vehiculos.class,
+			cascade = CascadeType.ALL,
+			mappedBy = "activo")
+	private Vehiculos vehiculos;
+	
+	@OneToOne(targetEntity = Edificios.class,
+			cascade = CascadeType.ALL,
+			mappedBy = "activo")
+	private Edificios edificios;
 
+	@OneToOne(targetEntity = Terrenos.class,
+			cascade = CascadeType.ALL,
+			mappedBy = "activo")
+	private Terrenos terrenos;
+	
+	@OneToOne(targetEntity = Adquisicion_activo.class,
+			cascade = CascadeType.ALL,mappedBy = "activo")
+	private Adquisicion_activo adquisicion_activo;
 	
 	public Activo() {
 		super();
@@ -142,6 +165,76 @@ public class Activo implements Serializable{
 		this.id_funcionario = id_funcionario;
 	}
 
+
+
+	public Mobiliarioenseres getMobiliarioenseres() {
+		return Mobiliarioenseres;
+	}
+
+
+	public void setMobiliarioenseres(Mobiliarioenseres mobiliarioenseres) {
+		Mobiliarioenseres = mobiliarioenseres;
+	}
+
+
+	public Equiposcomputacion getEquiposcomputacion() {
+		return equiposcomputacion;
+	}
+
+
+	public void setEquiposcomputacion(Equiposcomputacion equiposcomputacion) {
+		this.equiposcomputacion = equiposcomputacion;
+	}
+
+
+	public Equiposinstalacion getEquiposinstalacion() {
+		return equiposinstalacion;
+	}
+
+
+	public void setEquiposinstalacion(Equiposinstalacion equiposinstalacion) {
+		this.equiposinstalacion = equiposinstalacion;
+	}
+
+
+	public Vehiculos getVehiculos() {
+		return vehiculos;
+	}
+
+
+	public void setVehiculos(Vehiculos vehiculos) {
+		this.vehiculos = vehiculos;
+	}
+
+
+	public Edificios getEdificios() {
+		return edificios;
+	}
+
+
+	public void setEdificios(Edificios edificios) {
+		this.edificios = edificios;
+	}
+
+
+	public Terrenos getTerrenos() {
+		return terrenos;
+	}
+
+
+	public void setTerrenos(Terrenos terrenos) {
+		this.terrenos = terrenos;
+	}
+
+
+	public Adquisicion_activo getAdquisicion_activo() {
+		return adquisicion_activo;
+	}
+
+
+	public void setAdquisicion_activo(Adquisicion_activo adquisicion_activo) {
+		this.adquisicion_activo = adquisicion_activo;
+	}
 
 
 	@Override
