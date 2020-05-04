@@ -6,8 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -22,7 +20,6 @@ public class Activo implements Serializable{
 
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY,generator = "id_activo")
 	private long id_activo;
 	@Column(name = "id_cuenta")
 	private int id_cuenta;
@@ -40,6 +37,8 @@ public class Activo implements Serializable{
 	private String descripcion;
 	@Column(name = "unidad")
 	private String unidad;
+	@Column(name = "estado_op_nop")
+	private String estado_op_nop;
 	@Column(name = "observacion")
 	private String observacion;
 	
@@ -88,7 +87,7 @@ public class Activo implements Serializable{
 
 	
 	public Activo(long id_activo, int id_cuenta, int id_coop, int cod_tipo, String cod_seccion, String id_funcionario,
-			String nombre_tipo, String descripcion, String unidad, String observacion) {
+			String nombre_tipo, String descripcion, String unidad, String estado_op_nop, String observacion) {
 		super();
 		this.id_activo = id_activo;
 		this.id_cuenta = id_cuenta;
@@ -99,6 +98,7 @@ public class Activo implements Serializable{
 		this.nombre_tipo = nombre_tipo;
 		this.descripcion = descripcion;
 		this.unidad = unidad;
+		this.estado_op_nop = estado_op_nop;
 		this.observacion = observacion;
 	}
 
@@ -139,6 +139,14 @@ public class Activo implements Serializable{
 	public void setUnidad(String unidad) {
 		this.unidad = unidad;
 	}
+	
+	public String getEstado_op_nop() {
+		return estado_op_nop;
+	}
+	public void setEstado_op_nop(String estado_op_nop) {
+		this.estado_op_nop = estado_op_nop;
+	}
+	
 	public String getObservacion() {
 		return observacion;
 	}
@@ -241,7 +249,7 @@ public class Activo implements Serializable{
 	public String toString() {
 		return "Activo [id_activo=" + id_activo + ", id_cuenta=" + id_cuenta + ", id_coop=" + id_coop + ", cod_tipo="
 				+ cod_tipo + ", cod_seccion=" + cod_seccion + ", id_funcionario=" + id_funcionario + ", nombre_tipo="
-				+ nombre_tipo + ", descripcion=" + descripcion + ", unidad=" + unidad + ", observacion=" + observacion
+				+ nombre_tipo + ", descripcion=" + descripcion + ", unidad=" + unidad + ", estado_op_nop=" + estado_op_nop + ", observacion=" + observacion
 				+ "]";
 	}
 

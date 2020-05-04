@@ -55,17 +55,6 @@ public class ActivoService {
 		return ResponseEntity.ok().body(activo);
 	}
 	
-	
-	/*@GetMapping("activ/{id}")
-	public ResponseEntity<Optional<Activo>> getActivById(@PathVariable(value = "id") Long activoId)
-			{
-		Optional<Activo> activo = activoRepository.findById(activoId);
-		if(activo.isPresent())
-			return ResponseEntity.ok().body(activo);
-		else
-			return null ;
-
-	}*/
 
 	@PostMapping("activo")
 	public Activo createActivo( @RequestBody Activo activo) {
@@ -87,6 +76,7 @@ public class ActivoService {
 		activo.setNombre_tipo(activoDetails.getNombre_tipo());
 		activo.setDescripcion(activoDetails.getDescripcion());
 		activo.setUnidad(activoDetails.getUnidad());
+		activo.setEstado_op_nop(activoDetails.getEstado_op_nop());
 		activo.setObservacion(activoDetails.getObservacion());
 		return ResponseEntity.ok(this.activoRepository.save(activo));
 	}

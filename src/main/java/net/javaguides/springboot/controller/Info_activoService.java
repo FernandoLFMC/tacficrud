@@ -56,7 +56,6 @@ public class Info_activoService {
 
 
 		info_activo.setFecha_movimiento(info_activoDetails.getFecha_movimiento());
-		info_activo.setEstado_op_nop(info_activoDetails.getEstado_op_nop());
 		info_activo.setMotivo(info_activoDetails.getMotivo());
 		return ResponseEntity.ok(this.info_activoRepository.save(info_activo));
 	}

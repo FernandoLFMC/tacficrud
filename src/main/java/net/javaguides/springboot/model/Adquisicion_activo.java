@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class Adquisicion_activo {
 	
 	@Id
-	private long id_adq_ac;
+	private long id_activo;
 	@Column(name = "id_adquisicion")
 	private String id_adquisicion;
 	@Column(name = "nit")
@@ -28,27 +28,27 @@ public class Adquisicion_activo {
 	private float costo_adquisicion;
 	
 	@OneToOne(targetEntity = Activo.class)
-	@JoinColumn(name = "id_adq_ac")
+	@JoinColumn(name = "id_activo")
 	private Activo activo;
 	
 	public Adquisicion_activo() {
 		super();
 	}
-	public Adquisicion_activo(long id_adq_ac, String id_adquisicion, int nit, Date fecha_adquisicion,
+	public Adquisicion_activo(long id_activo, String id_adquisicion, int nit, Date fecha_adquisicion,
 			int comprobante_contable, float costo_adquisicion) {
 		super();
-		this.id_adq_ac = id_adq_ac;
+		this.id_activo = id_activo;
 		this.id_adquisicion = id_adquisicion;
 		this.nit = nit;
 		this.fecha_adquisicion = fecha_adquisicion;
 		this.comprobante_contable = comprobante_contable;
 		this.costo_adquisicion = costo_adquisicion;
 	}
-	public long getId_adq_ac() {
-		return id_adq_ac;
+	public long getId_activo() {
+		return id_activo;
 	}
-	public void setId_adq_ac(long id_adq_ac) {
-		this.id_adq_ac = id_adq_ac;
+	public void setId_activo(long id_activo) {
+		this.id_activo = id_activo;
 	}
 	public String getId_adquisicion() {
 		return id_adquisicion;

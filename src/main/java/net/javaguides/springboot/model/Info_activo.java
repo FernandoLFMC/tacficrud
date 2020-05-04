@@ -26,22 +26,18 @@ public class Info_activo implements Serializable{
 	private String seccion_anterior;
 	@Column(name = "fecha_movimiento")
 	private Date fecha_movimiento;
-	@Column(name = "estado_op_nop")
-	private String estado_op_nop;
 	@Column(name = "motivo")
 	private String motivo;
 	
 	public Info_activo() {
 		super();
 	}
-	public Info_activo(int id_activo,String funcionario_anterior, String seccion_anterior,Date fecha_movimineto,
-			String estado_op_nop, String motivo) {
+	public Info_activo(int id_activo,String funcionario_anterior, String seccion_anterior,Date fecha_movimineto, String motivo) {
 		super();
 		this.id_activo = id_activo;
 		this.funcionario_anterior = funcionario_anterior;
 		this.seccion_anterior = seccion_anterior;
 		this.fecha_movimiento = fecha_movimineto;
-		this.estado_op_nop = estado_op_nop;
 		this.motivo = motivo;
 	}
 	public long getId_info() {
@@ -75,12 +71,7 @@ public class Info_activo implements Serializable{
 	public void setFecha_movimiento(Date fecha_movimiento) {
 		this.fecha_movimiento = fecha_movimiento;
 	}
-	public String getEstado_op_nop() {
-		return estado_op_nop;
-	}
-	public void setEstado_op_nop(String estado_op_nop) {
-		this.estado_op_nop = estado_op_nop;
-	}
+
 	public String getMotivo() {
 		return motivo;
 	}
@@ -93,7 +84,7 @@ public class Info_activo implements Serializable{
 	public String toString() {
 		return "Info_activo [id_info=" + id_info + ", id_activo=" + id_activo + ", funcionario_anterior="
 				+ funcionario_anterior + ", seccion_anterior=" + seccion_anterior + ", fecha_movimiento="
-				+ fecha_movimiento + ", estado_op_nop=" + estado_op_nop + ", motivo=" + motivo + "]";
+				+ fecha_movimiento + ", motivo=" + motivo + "]";
 	}
 
 

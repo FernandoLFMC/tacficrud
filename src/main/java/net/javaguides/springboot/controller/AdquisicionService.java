@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,7 +44,7 @@ public class AdquisicionService {
 
 
 	@PostMapping("adquisicion")
-	public Adquisicion createAdquisiscion(Adquisicion adquisicion) {
+	public Adquisicion createAdquisiscion(@RequestBody Adquisicion adquisicion) {
 		return adquisicionRepository.save(adquisicion);
 	}
 
