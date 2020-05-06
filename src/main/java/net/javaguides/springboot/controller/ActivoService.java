@@ -19,35 +19,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import net.javaguides.springboot.exception.ResourceNotFoundException;
 import net.javaguides.springboot.model.Activo;
-import net.javaguides.springboot.model.Cuenta;
 import net.javaguides.springboot.repository.ActivoRepository;
-import net.javaguides.springboot.repository.CuentaRepository;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 public class ActivoService {
 	
 	@Autowired
 	private ActivoRepository activoRepository;
-	@Autowired
-	private CuentaRepository cuentaRepository;
+
 	
 
 	
-	@GetMapping("activo")
+	@GetMapping("/activo")
 	public List<Activo> getAllActivos(Activo acivo){
 		return this.activoRepository.findAll();
 	}
-	
 
-	@GetMapping("activoo")
-	public List<Cuenta> getAllCuentas(){
-		return this.cuentaRepository.findAll();
-	}
-	
-	
-
-	@GetMapping("activo/{id}")
+	@GetMapping("/activo/{id}")
 	public ResponseEntity<Activo> getActivoById(@PathVariable(value = "id") Long activoId)
 			throws ResourceNotFoundException {
 		Activo activo = activoRepository.findById(activoId)
@@ -56,13 +45,13 @@ public class ActivoService {
 	}
 	
 
-	@PostMapping("activo")
+	@PostMapping("/activo")
 	public Activo createActivo( @RequestBody Activo activo) {
 		return activoRepository.save(activo);
 	}
 
  
-	@PutMapping("activo/{id}")
+	@PutMapping("/activo/{id}")
 	public ResponseEntity<Activo> updateActivo(@PathVariable(value = "id") Long activoId,
 			@Valid Activo activoDetails) throws ResourceNotFoundException {
 		Activo activo = activoRepository.findById(activoId)

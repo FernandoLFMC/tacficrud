@@ -21,19 +21,19 @@ import net.javaguides.springboot.model.Adquisicion_activo;
 import net.javaguides.springboot.repository.Adquisicion_activoRepository;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 public class Adquisicion_activoService {
 	
 	@Autowired
 	private Adquisicion_activoRepository adquisicion_activoRepository;
 	
-	@GetMapping("adquisicion_activo")
+	@GetMapping("/adquisicion_activo")
 	public List<Adquisicion_activo> getAllAdquisicion_activos(){
 		return this.adquisicion_activoRepository.findAll();
 	}
 	
 
-	@GetMapping("adquisicion_activo/{id}")
+	@GetMapping("/adquisicion_activo/{id}")
 	public ResponseEntity<Adquisicion_activo> getAdquisicion_activoById(@PathVariable(value = "id") Long adquisicion_activoId)
 			throws ResourceNotFoundException {
 		Adquisicion_activo adquisicion_activo = adquisicion_activoRepository.findById(adquisicion_activoId)
@@ -42,13 +42,13 @@ public class Adquisicion_activoService {
 	}
 
 
-	@PostMapping("adquisicion_activo")
+	@PostMapping("/adquisicion_activo")
 	public Adquisicion_activo createAdquisicion_activo(Adquisicion_activo adquisicion_activo) {
 		return adquisicion_activoRepository.save(adquisicion_activo);
 	}
 
 	//update employee 
-	@PutMapping("adquisicion_activo/{id}")
+	@PutMapping("/adquisicion_activo/{id}")
 	public ResponseEntity<Adquisicion_activo> updateAdquisicion_activo(@PathVariable(value = "id") Long adquisicion_activoId,
 			@Valid Adquisicion_activo adquisicion_activoDetails) throws ResourceNotFoundException {
 		Adquisicion_activo adquisicion_activo = adquisicion_activoRepository.findById(adquisicion_activoId)
@@ -61,7 +61,7 @@ public class Adquisicion_activoService {
 	}
 
 	//delete employee
-	@DeleteMapping("adquisicion_activo/{id}")
+	@DeleteMapping("/adquisicion_activo/{id}")
 	public Map<String, Boolean> deleteAdquisicion_activo(@PathVariable(value = "id") Long adquisicion_activoId)
 			throws ResourceNotFoundException {
 		Adquisicion_activo adquisicion_activo = adquisicion_activoRepository.findById(adquisicion_activoId)
