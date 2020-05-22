@@ -8,6 +8,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +24,7 @@ import net.javaguides.springboot.model.Adquisicion;
 import net.javaguides.springboot.repository.AdquisicionRepository;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1/")
 public class AdquisicionService {
 	
@@ -29,12 +32,14 @@ public class AdquisicionService {
 	private AdquisicionRepository adquisicionRepository;
 	
 	@GetMapping("adquisicion")
+	@PreAuthorize("hasRole('ADMIN')")
 	public List<Adquisicion> getAllAdquisicions(){
 		return this.adquisicionRepository.findAll();
 	}
 	
 
 	@GetMapping("adquisicion/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Adquisicion> getAdquisicionById(@PathVariable(value = "id") String adquisicionId)
 			throws ResourceNotFoundException {
 		Adquisicion adquisicion = adquisicionRepository.findById(adquisicionId)
@@ -44,14 +49,16 @@ public class AdquisicionService {
 
 
 	@PostMapping("adquisicion")
+	@PreAuthorize("hasRole('ADMIN')")
 	public Adquisicion createAdquisiscion(@RequestBody Adquisicion adquisicion) {
 		return adquisicionRepository.save(adquisicion);
 	}
 
 	
 	@PutMapping("adquisicion/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Adquisicion> updateAdquisicion(@PathVariable(value = "id") String adquisicionId,
-			@Valid Adquisicion adquisicionDetails) throws ResourceNotFoundException {
+			@Valid @RequestBody Adquisicion adquisicionDetails) throws ResourceNotFoundException {
 		Adquisicion adquisicion = adquisicionRepository.findById(adquisicionId)
 				.orElseThrow(() -> new ResourceNotFoundException("Adquisicion no exite para este id :: " + adquisicionId));
 
@@ -62,6 +69,7 @@ public class AdquisicionService {
 
 	//delete employee
 	@DeleteMapping("adquisicion/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public Map<String, Boolean> deleteAdquisicion(@PathVariable(value = "id") String adquisicionId)
 			throws ResourceNotFoundException {
 		Adquisicion adquisicion = adquisicionRepository.findById(adquisicionId)

@@ -8,6 +8,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +24,7 @@ import net.javaguides.springboot.model.Funcionario;
 import net.javaguides.springboot.repository.FuncionarioRepository;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1/")
 public class FuncionarioService {
 	
@@ -29,11 +32,13 @@ public class FuncionarioService {
 	private FuncionarioRepository funcionarioRepository;
 	
 	@GetMapping("funcionario")
+	@PreAuthorize("hasRole('ADMIN')")
 	public List<Funcionario> getAllFuncionarios(){
 		return this.funcionarioRepository.findAll();
 	}
 	
 	@GetMapping("funcionario/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Funcionario> getFuncionarioById(@PathVariable(value = "id") String funcionarioId)
 			throws ResourceNotFoundException {
 		Funcionario funcionario = funcionarioRepository.findById(funcionarioId)
@@ -43,14 +48,16 @@ public class FuncionarioService {
 
 	
 	@PostMapping("funcionario")
+	@PreAuthorize("hasRole('ADMIN')")
 	public Funcionario createFuncionario(@RequestBody Funcionario funcionario) {
 		return funcionarioRepository.save(funcionario);
 	}
 
 	
 	@PutMapping("funcionario/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Funcionario> updateFuncionario(@PathVariable(value = "id") String funcionarioId,
-			@Valid Funcionario funcionarioDetails) throws ResourceNotFoundException {
+			@Valid @RequestBody Funcionario funcionarioDetails) throws ResourceNotFoundException {
 		Funcionario funcionario = funcionarioRepository.findById(funcionarioId)
 				.orElseThrow(() -> new ResourceNotFoundException("Funcionario no existe para este  id :: " + funcionarioId));
 
@@ -61,6 +68,7 @@ public class FuncionarioService {
 
 	//delete employee
 	@DeleteMapping("funcionario/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public Map<String, Boolean> deleteFuncionario(@PathVariable(value = "id") String funcionarioId)
 			throws ResourceNotFoundException {
 		Funcionario funcionario = funcionarioRepository.findById(funcionarioId)

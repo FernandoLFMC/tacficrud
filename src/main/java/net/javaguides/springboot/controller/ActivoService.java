@@ -8,6 +8,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +24,7 @@ import net.javaguides.springboot.model.Activo;
 import net.javaguides.springboot.repository.ActivoRepository;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1")
 public class ActivoService {
 	
@@ -32,11 +35,13 @@ public class ActivoService {
 
 	
 	@GetMapping("/activo")
+	@PreAuthorize("hasRole('ADMIN')")
 	public List<Activo> getAllActivos(Activo acivo){
 		return this.activoRepository.findAll();
 	}
 
 	@GetMapping("/activo/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Activo> getActivoById(@PathVariable(value = "id") Long activoId)
 			throws ResourceNotFoundException {
 		Activo activo = activoRepository.findById(activoId)
@@ -46,14 +51,16 @@ public class ActivoService {
 	
 
 	@PostMapping("/activo")
+	@PreAuthorize("hasRole('ADMIN')")
 	public Activo createActivo( @RequestBody Activo activo) {
 		return activoRepository.save(activo);
 	}
 
  
 	@PutMapping("/activo/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Activo> updateActivo(@PathVariable(value = "id") Long activoId,
-			@Valid Activo activoDetails) throws ResourceNotFoundException {
+			@Valid @RequestBody Activo activoDetails) throws ResourceNotFoundException {
 		Activo activo = activoRepository.findById(activoId)
 				.orElseThrow(() -> new ResourceNotFoundException("Activo no existe para este id :: " + activoId));
 
@@ -72,6 +79,7 @@ public class ActivoService {
 
 
 	@DeleteMapping("activo/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public Map<String, Boolean> deleteActivo(@PathVariable(value = "id") Long activoId)
 			throws ResourceNotFoundException {
 		Activo activo = activoRepository.findById(activoId)

@@ -8,11 +8,14 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +24,7 @@ import net.javaguides.springboot.model.Cooperativa;
 import net.javaguides.springboot.repository.CooperativaRepository;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1/")
 public class CooperativaService {
 	
@@ -28,11 +32,13 @@ public class CooperativaService {
 	private CooperativaRepository cooperativaRepository;
 	
 	@GetMapping("cooperativa")
+	@PreAuthorize("hasRole('ADMIN')")
 	public List<Cooperativa> getAllCooperativas(){
 		return this.cooperativaRepository.findAll();
 	}
 	
 	@GetMapping("cooperativa/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Cooperativa> getCooperativaById(@PathVariable(value = "id") Long cooperativaId)
 			throws ResourceNotFoundException {
 		Cooperativa cooperativa = cooperativaRepository.findById(cooperativaId)
@@ -41,13 +47,15 @@ public class CooperativaService {
 	}
 	
 	@PostMapping("cooperativa")
-	public Cooperativa createCooperativa(Cooperativa cooperativa) {
+	@PreAuthorize("hasRole('ADMIN')")
+	public Cooperativa createCooperativa(@RequestBody Cooperativa cooperativa) {
 		return cooperativaRepository.save(cooperativa);
 	}
 	
 	@PutMapping("cooperativa/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Cooperativa> updateCooperativa(@PathVariable(value = "id") Long cooperativaId,
-			@Valid Cooperativa cooperativaDetails) throws ResourceNotFoundException {
+			@Valid @RequestBody Cooperativa cooperativaDetails) throws ResourceNotFoundException {
 		Cooperativa cooperativa = cooperativaRepository.findById(cooperativaId)
 				.orElseThrow(() -> new ResourceNotFoundException("Cooperativa no encontrada para esta identificacion : : " + cooperativaId));
 
@@ -63,6 +71,7 @@ public class CooperativaService {
 	}
 
 	@DeleteMapping("cooperativa/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public Map<String, Boolean> deleteCooperativa(@PathVariable(value = "id") Long cooperativaId)
 			throws ResourceNotFoundException {
 		Cooperativa cooperativa = cooperativaRepository.findById(cooperativaId)

@@ -8,11 +8,14 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,17 +24,20 @@ import net.javaguides.springboot.model.Cuenta;
 import net.javaguides.springboot.repository.CuentaRepository;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1/")
 public class CuentaService {
 	@Autowired
 	private CuentaRepository cuentaRepository;
 	
 	@GetMapping("cuenta")
+	@PreAuthorize("hasRole('ADMIN')")
 	public List<Cuenta> getAllCuentas(){
 		return this.cuentaRepository.findAll();
 	}
 	
 	@GetMapping("cuenta/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Cuenta> getCuentaById(@PathVariable(value = "id") Long cuentaId)
 			throws ResourceNotFoundException {
 		Cuenta cuenta = cuentaRepository.findById(cuentaId)
@@ -41,14 +47,16 @@ public class CuentaService {
 
 
 	@PostMapping("cuenta")
-	public Cuenta createCuenta(Cuenta cuenta) {
+	@PreAuthorize("hasRole('ADMIN')")
+	public Cuenta createCuenta(@RequestBody Cuenta cuenta) {
 		return cuentaRepository.save(cuenta);
 	}
 
 
 	@PutMapping("cuenta/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Cuenta> updateCuenta(@PathVariable(value = "id") Long cuentaId,
-			@Valid Cuenta CuentaDetails) throws ResourceNotFoundException {
+			@Valid @RequestBody Cuenta CuentaDetails) throws ResourceNotFoundException {
 		Cuenta cuenta = cuentaRepository.findById(cuentaId)
 				.orElseThrow(() -> new ResourceNotFoundException("Cuenta no existe para este id :: " + cuentaId));
 
@@ -58,6 +66,7 @@ public class CuentaService {
 
 	
 	@DeleteMapping("cuenta/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public Map<String, Boolean> deleteCuenta(@PathVariable(value = "id") Long cuentaId)
 			throws ResourceNotFoundException {
 		Cuenta cuenta= cuentaRepository.findById(cuentaId)

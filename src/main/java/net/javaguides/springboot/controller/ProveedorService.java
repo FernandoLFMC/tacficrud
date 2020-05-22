@@ -8,6 +8,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +24,7 @@ import net.javaguides.springboot.model.Proveedor;
 import net.javaguides.springboot.repository.ProveedorRepository;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1/")
 public class ProveedorService {
 	
@@ -29,12 +32,14 @@ public class ProveedorService {
 	private ProveedorRepository proveedorRepository;
 	
 	@GetMapping("proveedor")
+	@PreAuthorize("hasRole('ADMIN')")
 	public List<Proveedor> getAllProveedors(){
 		return this.proveedorRepository.findAll();
 	}
 	
 	
 	@GetMapping("proveedor/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Proveedor> getProveedorById(@PathVariable(value = "id") Long proveedorId)
 			throws ResourceNotFoundException {
 		Proveedor proveedor = proveedorRepository.findById(proveedorId)
@@ -44,14 +49,16 @@ public class ProveedorService {
 
 	
 	@PostMapping("proveedor")
+	@PreAuthorize("hasRole('ADMIN')")
 	public Proveedor createProveedor(@RequestBody Proveedor proveedor) {
 		return proveedorRepository.save(proveedor);
 	}
 
 	
 	@PutMapping("proveedor/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Proveedor> updateProveedor(@PathVariable(value = "id") Long proveedorId,
-			@Valid Proveedor proveedorDetails) throws ResourceNotFoundException {
+			@Valid @RequestBody Proveedor proveedorDetails) throws ResourceNotFoundException {
 		Proveedor proveedor = proveedorRepository.findById(proveedorId)
 				.orElseThrow(() -> new ResourceNotFoundException("Proveedor no existe para este id :: " + proveedorId));
 
@@ -63,6 +70,7 @@ public class ProveedorService {
 
 
 	@DeleteMapping("proveedor/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public Map<String, Boolean> deleteProveedor(@PathVariable(value = "id") Long proveedorId)
 			throws ResourceNotFoundException {
 		Proveedor proveedor= proveedorRepository.findById(proveedorId)

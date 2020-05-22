@@ -8,6 +8,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +24,7 @@ import net.javaguides.springboot.model.Seccion;
 import net.javaguides.springboot.repository.SeccionRepository;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1/")
 public class SeccionService {
 	
@@ -29,11 +32,13 @@ public class SeccionService {
 	private SeccionRepository seccionRepository;
 	
 	@GetMapping("seccion")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public List<Seccion> getAllSeccions(){
 		return this.seccionRepository.findAll();
 	}
 	
 	@GetMapping("seccion/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Seccion> getSeccionById(@PathVariable(value = "id") String seccionId)
 			throws ResourceNotFoundException {
 		Seccion seccion = seccionRepository.findById(seccionId)
@@ -42,13 +47,15 @@ public class SeccionService {
 	}
 	
 	@PostMapping("seccion")
+	@PreAuthorize("hasRole('ADMIN')")
 	public Seccion createSeccion(@RequestBody Seccion seccion) {
 		return seccionRepository.save(seccion);
 	}
 
 	@PutMapping("seccion/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Seccion> updateSeccion(@PathVariable(value = "id") String seccionId,
-			@Valid Seccion seccionDetails) throws ResourceNotFoundException {
+			@Valid @RequestBody Seccion seccionDetails) throws ResourceNotFoundException {
 		Seccion seccion = seccionRepository.findById(seccionId)
 				.orElseThrow(() -> new ResourceNotFoundException("Seccion no encontrada para esta identificacion : : " + seccionId));
 
@@ -57,6 +64,7 @@ public class SeccionService {
 	}
 
 	@DeleteMapping("seccion/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public Map<String, Boolean> deleteSeccion(@PathVariable(value = "id") String seccionId)
 			throws ResourceNotFoundException {
 		Seccion seccion = seccionRepository.findById(seccionId)
