@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class SelectActivo {
 	
-	private int id_activo;
+	private long id_activo;
 	private int id_cuenta;
 	private int id_coop;
 	private int cod_tipo;
@@ -40,13 +40,20 @@ public class SelectActivo {
     }
 	
 
-	public SelectActivo(int id_cuenta, int id_coop, int cod_tipo, String cod_seccion, String id_funcionario) {
+	public SelectActivo(long id_activo, int id_cuenta, int id_coop, int cod_tipo, String cod_seccion, String id_funcionario) {
 		super();
+		this.id_activo = id_activo;
 		this.id_cuenta = id_cuenta;
 		this.id_coop = id_coop;
 		this.cod_tipo = cod_tipo;
 		this.cod_seccion = cod_seccion;
 		this.id_funcionario = id_funcionario;
+	}
+	
+	public SelectActivo(long id_activo, int id_cuenta, int cod_tipo) {
+		this.id_activo = id_activo;
+		this.id_cuenta = id_cuenta;
+		this.cod_tipo = cod_tipo;
 	}
 
 
@@ -132,11 +139,11 @@ public class SelectActivo {
 		this.id_info = id_info;
 	}
 
-	public int getId_activo() {
+	public long getId_activo() {
 		return id_activo;
 	}
 
-	public void setId_activo(int id_activo) {
+	public void setId_activo(long id_activo) {
 		this.id_activo = id_activo;
 	}
 

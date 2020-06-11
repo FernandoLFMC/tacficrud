@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -20,6 +22,7 @@ public class Activo implements Serializable{
 
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY,generator = "id_activo")
 	private long id_activo;
 	@Column(name = "id_cuenta")
 	private int id_cuenta;

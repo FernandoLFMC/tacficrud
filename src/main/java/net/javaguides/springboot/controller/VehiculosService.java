@@ -8,11 +8,14 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +24,7 @@ import net.javaguides.springboot.model.Vehiculos;
 import net.javaguides.springboot.repository.VehiculosRepository;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1/")
 public class VehiculosService {
 	
@@ -41,13 +45,14 @@ public class VehiculosService {
 	}
 	
 	@PostMapping("vehiculos")
-	public Vehiculos createVehiculos(Vehiculos vehiculos) {
+	@PreAuthorize("hasRole('ADMIN')")
+	public Vehiculos createVehiculos(@RequestBody Vehiculos vehiculos) {
 		return vehiculosRepository.save(vehiculos);
 	}
 
 	@PutMapping("vehiculos/{id}")
 	public ResponseEntity<Vehiculos> updateVehiculos(@PathVariable(value = "id") Long vehiculosId,
-			@Valid Vehiculos vehiculosDetails) throws ResourceNotFoundException {
+			@Valid @RequestBody Vehiculos vehiculosDetails) throws ResourceNotFoundException {
 		Vehiculos vehiculos = vehiculosRepository.findById(vehiculosId)
 				.orElseThrow(() -> new ResourceNotFoundException("Seccion no encontrada para esta identificacion : : " + vehiculosId));
 		vehiculos.setColor(vehiculosDetails.getColor());

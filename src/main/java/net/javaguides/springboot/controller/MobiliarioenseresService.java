@@ -8,11 +8,14 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +24,7 @@ import net.javaguides.springboot.model.Mobiliarioenseres;
 import net.javaguides.springboot.repository.MobiliarioenseresRepository;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1/")
 public class MobiliarioenseresService {
 	
@@ -41,13 +45,14 @@ public class MobiliarioenseresService {
 	}
 	
 	@PostMapping("mobiliarioenseres")
-	public Mobiliarioenseres createMobiliarioenseres(Mobiliarioenseres mobiliarioenseres) {
+	@PreAuthorize("hasRole('ADMIN')")
+	public Mobiliarioenseres createMobiliarioenseres(@RequestBody Mobiliarioenseres mobiliarioenseres) {
 		return mobiliarioenseresRepository.save(mobiliarioenseres);
 	}
 
 	@PutMapping("mobiliarioenseres/{id}")
 	public ResponseEntity<Mobiliarioenseres> updateMobiliarioenseres(@PathVariable(value = "id") Long mobiliarioenseresId,
-			@Valid Mobiliarioenseres mobiliarioenseresDetails) throws ResourceNotFoundException {
+			@Valid @RequestBody Mobiliarioenseres mobiliarioenseresDetails) throws ResourceNotFoundException {
 		Mobiliarioenseres mobiliarioenseres = mobiliarioenseresRepository.findById(mobiliarioenseresId)
 				.orElseThrow(() -> new ResourceNotFoundException("Seccion no encontrada para esta identificacion : : " + mobiliarioenseresId));
 

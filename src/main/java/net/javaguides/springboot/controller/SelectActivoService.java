@@ -32,4 +32,10 @@ public class SelectActivoService {
         return activoRepository.getSelect();
     }
     
+    @GetMapping("id_activo")
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<SelectActivo> getIdActivo(){
+        return activoRepository.getIdActivo();
+    }
+    
 }

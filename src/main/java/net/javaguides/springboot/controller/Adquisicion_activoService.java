@@ -25,20 +25,20 @@ import net.javaguides.springboot.repository.Adquisicion_activoRepository;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/")
 public class Adquisicion_activoService {
 	
 	@Autowired
 	private Adquisicion_activoRepository adquisicion_activoRepository;
 	
-	@GetMapping("/adquisicion_activo")
+	@GetMapping("adquisicion_activo")
 	@PreAuthorize("hasRole('ADMIN')")
 	public List<Adquisicion_activo> getAllAdquisicion_activos(){
 		return this.adquisicion_activoRepository.findAll();
 	}
 	
 
-	@GetMapping("/adquisicion_activo/{id}")
+	@GetMapping("adquisicion_activo/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Adquisicion_activo> getAdquisicion_activoById(@PathVariable(value = "id") Long adquisicion_activoId)
 			throws ResourceNotFoundException {
@@ -48,14 +48,14 @@ public class Adquisicion_activoService {
 	}
 
 
-	@PostMapping("/adquisicion_activo")
+	@PostMapping("adquisicion_activo")
 	@PreAuthorize("hasRole('ADMIN')")
 	public Adquisicion_activo createAdquisicion_activo(@RequestBody Adquisicion_activo adquisicion_activo) {
 		return adquisicion_activoRepository.save(adquisicion_activo);
 	}
 
 	//update employee 
-	@PutMapping("/adquisicion_activo/{id}")
+	@PutMapping("adquisicion_activo/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Adquisicion_activo> updateAdquisicion_activo(@PathVariable(value = "id") Long adquisicion_activoId,
 			@Valid @RequestBody Adquisicion_activo adquisicion_activoDetails) throws ResourceNotFoundException {
@@ -69,7 +69,7 @@ public class Adquisicion_activoService {
 	}
 
 	//delete employee
-	@DeleteMapping("/adquisicion_activo/{id}")
+	@DeleteMapping("adquisicion_activo/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public Map<String, Boolean> deleteAdquisicion_activo(@PathVariable(value = "id") Long adquisicion_activoId)
 			throws ResourceNotFoundException {

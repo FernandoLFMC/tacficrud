@@ -8,11 +8,14 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +24,7 @@ import net.javaguides.springboot.model.Terrenos;
 import net.javaguides.springboot.repository.TerrenosRepository;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1/")
 public class TerrenosService {
 	
@@ -28,11 +32,13 @@ public class TerrenosService {
 	private TerrenosRepository terrenosRepository;
 	
 	@GetMapping("terrenos")
+	@PreAuthorize("hasRole('ADMIN')")
 	public List<Terrenos> getAllTerrenos(){
 		return this.terrenosRepository.findAll();
 	}
 	
 	@GetMapping("terrenos/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Terrenos> getTerrenosById(@PathVariable(value = "id") Long terrenosId)
 			throws ResourceNotFoundException {
 		Terrenos terrenos = terrenosRepository.findById(terrenosId)
@@ -41,13 +47,15 @@ public class TerrenosService {
 	}
 	
 	@PostMapping("terrenos")
-	public Terrenos createTerrenos(Terrenos terrenos) {
+	@PreAuthorize("hasRole('ADMIN')")
+	public Terrenos createTerrenos(@RequestBody Terrenos terrenos) {
 		return terrenosRepository.save(terrenos);
 	}
 
 	@PutMapping("terrenos/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Terrenos> updateTerrenos(@PathVariable(value = "id") Long terrenosId,
-			@Valid Terrenos terrenosDetails) throws ResourceNotFoundException {
+			@Valid @RequestBody Terrenos terrenosDetails) throws ResourceNotFoundException {
 		Terrenos terrenos = terrenosRepository.findById(terrenosId)
 				.orElseThrow(() -> new ResourceNotFoundException("Seccion no encontrada para esta identificacion : : " + terrenosId));
 
@@ -65,6 +73,7 @@ public class TerrenosService {
 	}
 
 	@DeleteMapping("terrenos/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public Map<String, Boolean> deleteEquiposinstalacion(@PathVariable(value = "id") Long terrenosId)
 			throws ResourceNotFoundException {
 		Terrenos terrenos = terrenosRepository.findById(terrenosId)
