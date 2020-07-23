@@ -31,13 +31,13 @@ public class CuentaService {
 	private CuentaRepository cuentaRepository;
 	
 	@GetMapping("cuenta")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER') or hasRole('PM')")
 	public List<Cuenta> getAllCuentas(){
 		return this.cuentaRepository.findAll();
 	}
 	
 	@GetMapping("cuenta/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Cuenta> getCuentaById(@PathVariable(value = "id") Long cuentaId)
 			throws ResourceNotFoundException {
 		Cuenta cuenta = cuentaRepository.findById(cuentaId)
@@ -47,14 +47,14 @@ public class CuentaService {
 
 
 	@PostMapping("cuenta")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Cuenta createCuenta(@RequestBody Cuenta cuenta) {
 		return cuentaRepository.save(cuenta);
 	}
 
 
 	@PutMapping("cuenta/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Cuenta> updateCuenta(@PathVariable(value = "id") Long cuentaId,
 			@Valid @RequestBody Cuenta CuentaDetails) throws ResourceNotFoundException {
 		Cuenta cuenta = cuentaRepository.findById(cuentaId)
@@ -66,7 +66,7 @@ public class CuentaService {
 
 	
 	@DeleteMapping("cuenta/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Map<String, Boolean> deleteCuenta(@PathVariable(value = "id") Long cuentaId)
 			throws ResourceNotFoundException {
 		Cuenta cuenta= cuentaRepository.findById(cuentaId)

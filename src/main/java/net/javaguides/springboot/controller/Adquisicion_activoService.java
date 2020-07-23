@@ -32,14 +32,14 @@ public class Adquisicion_activoService {
 	private Adquisicion_activoRepository adquisicion_activoRepository;
 	
 	@GetMapping("adquisicion_activo")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER') or hasRole('PM')")
 	public List<Adquisicion_activo> getAllAdquisicion_activos(){
 		return this.adquisicion_activoRepository.findAll();
 	}
 	
 
 	@GetMapping("adquisicion_activo/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Adquisicion_activo> getAdquisicion_activoById(@PathVariable(value = "id") Long adquisicion_activoId)
 			throws ResourceNotFoundException {
 		Adquisicion_activo adquisicion_activo = adquisicion_activoRepository.findById(adquisicion_activoId)
@@ -49,14 +49,14 @@ public class Adquisicion_activoService {
 
 
 	@PostMapping("adquisicion_activo")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Adquisicion_activo createAdquisicion_activo(@RequestBody Adquisicion_activo adquisicion_activo) {
 		return adquisicion_activoRepository.save(adquisicion_activo);
 	}
 
 	//update employee 
 	@PutMapping("adquisicion_activo/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Adquisicion_activo> updateAdquisicion_activo(@PathVariable(value = "id") Long adquisicion_activoId,
 			@Valid @RequestBody Adquisicion_activo adquisicion_activoDetails) throws ResourceNotFoundException {
 		Adquisicion_activo adquisicion_activo = adquisicion_activoRepository.findById(adquisicion_activoId)
@@ -64,13 +64,14 @@ public class Adquisicion_activoService {
 
 		adquisicion_activo.setFecha_adquisicion(adquisicion_activoDetails.getFecha_adquisicion());
 		adquisicion_activo.setComprobante_contable(adquisicion_activoDetails.getComprobante_contable());
+		adquisicion_activo.setNro_factura(adquisicion_activoDetails.getNro_factura());
 		adquisicion_activo.setCosto_adquisicion(adquisicion_activoDetails.getCosto_adquisicion());
 		return ResponseEntity.ok(this.adquisicion_activoRepository.save(adquisicion_activo));
 	}
 
 	//delete employee
 	@DeleteMapping("adquisicion_activo/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Map<String, Boolean> deleteAdquisicion_activo(@PathVariable(value = "id") Long adquisicion_activoId)
 			throws ResourceNotFoundException {
 		Adquisicion_activo adquisicion_activo = adquisicion_activoRepository.findById(adquisicion_activoId)

@@ -24,6 +24,8 @@ public class Adquisicion_activo {
 	private Date fecha_adquisicion;
 	@Column(name = "comprobante_contable")
 	private int comprobante_contable;
+	@Column(name = "nro_factura")
+	private int nro_factura;
 	@Column(name = "costo_adquisicion")
 	private float costo_adquisicion;
 	
@@ -35,13 +37,14 @@ public class Adquisicion_activo {
 		super();
 	}
 	public Adquisicion_activo(long id_activo, String id_adquisicion, int nit, Date fecha_adquisicion,
-			int comprobante_contable, float costo_adquisicion) {
+			int comprobante_contable, int nro_factura, float costo_adquisicion) {
 		super();
 		this.id_activo = id_activo;
 		this.id_adquisicion = id_adquisicion;
 		this.nit = nit;
 		this.fecha_adquisicion = fecha_adquisicion;
 		this.comprobante_contable = comprobante_contable;
+		this.nro_factura = nro_factura;
 		this.costo_adquisicion = costo_adquisicion;
 	}
 	public long getId_activo() {
@@ -73,6 +76,14 @@ public class Adquisicion_activo {
 	}
 	public void setComprobante_contable(int comprobante_contable) {
 		this.comprobante_contable = comprobante_contable;
+	}
+	
+	
+	public int getNro_factura() {
+		return nro_factura;
+	}
+	public void setNro_factura(int nro_factura) {
+		this.nro_factura = nro_factura;
 	}
 	public float getCosto_adquisicion() {
 		return costo_adquisicion;

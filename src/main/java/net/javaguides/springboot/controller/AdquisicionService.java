@@ -32,14 +32,14 @@ public class AdquisicionService {
 	private AdquisicionRepository adquisicionRepository;
 	
 	@GetMapping("adquisicion")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER') or hasRole('PM')")
 	public List<Adquisicion> getAllAdquisicions(){
 		return this.adquisicionRepository.findAll();
 	}
 	
 
 	@GetMapping("adquisicion/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Adquisicion> getAdquisicionById(@PathVariable(value = "id") String adquisicionId)
 			throws ResourceNotFoundException {
 		Adquisicion adquisicion = adquisicionRepository.findById(adquisicionId)
@@ -49,14 +49,14 @@ public class AdquisicionService {
 
 
 	@PostMapping("adquisicion")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Adquisicion createAdquisiscion(@RequestBody Adquisicion adquisicion) {
 		return adquisicionRepository.save(adquisicion);
 	}
 
 	
 	@PutMapping("adquisicion/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Adquisicion> updateAdquisicion(@PathVariable(value = "id") String adquisicionId,
 			@Valid @RequestBody Adquisicion adquisicionDetails) throws ResourceNotFoundException {
 		Adquisicion adquisicion = adquisicionRepository.findById(adquisicionId)
@@ -69,7 +69,7 @@ public class AdquisicionService {
 
 	//delete employee
 	@DeleteMapping("adquisicion/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Map<String, Boolean> deleteAdquisicion(@PathVariable(value = "id") String adquisicionId)
 			throws ResourceNotFoundException {
 		Adquisicion adquisicion = adquisicionRepository.findById(adquisicionId)

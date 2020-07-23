@@ -32,13 +32,13 @@ public class CooperativaService {
 	private CooperativaRepository cooperativaRepository;
 	
 	@GetMapping("cooperativa")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER') or hasRole('PM')")
 	public List<Cooperativa> getAllCooperativas(){
 		return this.cooperativaRepository.findAll();
 	}
 	
 	@GetMapping("cooperativa/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Cooperativa> getCooperativaById(@PathVariable(value = "id") Long cooperativaId)
 			throws ResourceNotFoundException {
 		Cooperativa cooperativa = cooperativaRepository.findById(cooperativaId)
@@ -47,13 +47,13 @@ public class CooperativaService {
 	}
 	
 	@PostMapping("cooperativa")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Cooperativa createCooperativa(@RequestBody Cooperativa cooperativa) {
 		return cooperativaRepository.save(cooperativa);
 	}
 	
 	@PutMapping("cooperativa/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Cooperativa> updateCooperativa(@PathVariable(value = "id") Long cooperativaId,
 			@Valid @RequestBody Cooperativa cooperativaDetails) throws ResourceNotFoundException {
 		Cooperativa cooperativa = cooperativaRepository.findById(cooperativaId)
@@ -71,7 +71,7 @@ public class CooperativaService {
 	}
 
 	@DeleteMapping("cooperativa/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Map<String, Boolean> deleteCooperativa(@PathVariable(value = "id") Long cooperativaId)
 			throws ResourceNotFoundException {
 		Cooperativa cooperativa = cooperativaRepository.findById(cooperativaId)

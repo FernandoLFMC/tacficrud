@@ -45,7 +45,7 @@ public class VehiculosService {
 	}
 	
 	@PostMapping("vehiculos")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Vehiculos createVehiculos(@RequestBody Vehiculos vehiculos) {
 		return vehiculosRepository.save(vehiculos);
 	}

@@ -32,13 +32,11 @@ public class TerrenosService {
 	private TerrenosRepository terrenosRepository;
 	
 	@GetMapping("terrenos")
-	@PreAuthorize("hasRole('ADMIN')")
 	public List<Terrenos> getAllTerrenos(){
 		return this.terrenosRepository.findAll();
 	}
 	
 	@GetMapping("terrenos/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Terrenos> getTerrenosById(@PathVariable(value = "id") Long terrenosId)
 			throws ResourceNotFoundException {
 		Terrenos terrenos = terrenosRepository.findById(terrenosId)
@@ -47,13 +45,13 @@ public class TerrenosService {
 	}
 	
 	@PostMapping("terrenos")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Terrenos createTerrenos(@RequestBody Terrenos terrenos) {
 		return terrenosRepository.save(terrenos);
 	}
 
 	@PutMapping("terrenos/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Terrenos> updateTerrenos(@PathVariable(value = "id") Long terrenosId,
 			@Valid @RequestBody Terrenos terrenosDetails) throws ResourceNotFoundException {
 		Terrenos terrenos = terrenosRepository.findById(terrenosId)

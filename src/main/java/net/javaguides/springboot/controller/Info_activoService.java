@@ -32,14 +32,14 @@ public class Info_activoService {
 	private Info_activoRepository info_activoRepository;
 	
 	@GetMapping("info_activo")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public List<Info_activo> getAllInfo_activos(){
 		return this.info_activoRepository.findAll();
 	}
 
 
 	@GetMapping("info_activo/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Info_activo> getInfo_activoById(@PathVariable(value = "id") Long info_activoId)
 			throws ResourceNotFoundException {
 		Info_activo info_activo = info_activoRepository.findById(info_activoId)
@@ -49,14 +49,14 @@ public class Info_activoService {
 
 
 	@PostMapping("info_activo")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Info_activo createEmployee(@RequestBody Info_activo info_activo) {
 		return info_activoRepository.save(info_activo);
 	}
 
 
 	@PutMapping("info_activo/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Info_activo> updateInfo_activo(@PathVariable(value = "id") Long info_activoId,
 			@Valid @RequestBody Info_activo info_activoDetails) throws ResourceNotFoundException {
 				Info_activo info_activo = info_activoRepository.findById(info_activoId)
@@ -70,7 +70,7 @@ public class Info_activoService {
 
 
 	@DeleteMapping("info_activo/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Map<String, Boolean> deleteInfo_activo(@PathVariable(value = "id") Long info_activoId)
 			throws ResourceNotFoundException {
 		Info_activo info_activo = info_activoRepository.findById(info_activoId)

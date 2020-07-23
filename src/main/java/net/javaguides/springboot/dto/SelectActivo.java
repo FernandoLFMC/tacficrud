@@ -40,7 +40,7 @@ public class SelectActivo {
     }
 	
 
-	public SelectActivo(long id_activo, int id_cuenta, int id_coop, int cod_tipo, String cod_seccion, String id_funcionario) {
+	public SelectActivo(long id_activo, int id_cuenta, int id_coop, int cod_tipo, String cod_seccion, String id_funcionario, String nombre_tipo, String unidad, String descripcion, String observacion, String estado_op_nop) {
 		super();
 		this.id_activo = id_activo;
 		this.id_cuenta = id_cuenta;
@@ -48,6 +48,11 @@ public class SelectActivo {
 		this.cod_tipo = cod_tipo;
 		this.cod_seccion = cod_seccion;
 		this.id_funcionario = id_funcionario;
+		this.nombre_tipo = nombre_tipo;
+		this.unidad = unidad;
+		this.descripcion = descripcion;
+		this.observacion=observacion;
+		this.estado_op_nop=estado_op_nop;
 	}
 	
 	public SelectActivo(long id_activo, int id_cuenta, int cod_tipo) {

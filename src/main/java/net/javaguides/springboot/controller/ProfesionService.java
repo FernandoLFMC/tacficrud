@@ -8,6 +8,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +24,7 @@ import net.javaguides.springboot.model.Profesion;
 import net.javaguides.springboot.repository.ProfesionRepository;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1/")
 public class ProfesionService {
 	@Autowired
@@ -29,11 +32,13 @@ public class ProfesionService {
 	
 
 	@GetMapping("profesion")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public List<Profesion> getAllProfesions(){
 		return this.profesionRepository.findAll();
 	}
 	
 	@GetMapping("profesion/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Profesion> getProfesionById(@PathVariable(value = "id") Long profesionId)
 		throws ResourceNotFoundException{
 		Profesion profesion = profesionRepository.findById(profesionId)
@@ -42,11 +47,13 @@ public class ProfesionService {
 	}
 	
 	@PostMapping("profesion")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Profesion creatProfesion(@RequestBody Profesion profesion) {
 		return profesionRepository.save(profesion);
 	}
 	
 	@PutMapping("profesion/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Profesion> updateProfesion(@PathVariable(value = "id") Long profesionId,
 			@Valid Profesion profesionDetails) throws ResourceNotFoundException {
 		Profesion profesion = profesionRepository.findById(profesionId)
@@ -58,6 +65,7 @@ public class ProfesionService {
 	}
 	
 	@DeleteMapping("profesion/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Map<String, Boolean> deleteProfesion(@PathVariable(value = "id") Long profesionId)
 			throws ResourceNotFoundException {
 		Profesion profesion = profesionRepository.findById(profesionId)

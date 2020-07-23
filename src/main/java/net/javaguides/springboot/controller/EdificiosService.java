@@ -43,11 +43,12 @@ public class EdificiosService {
 		return ResponseEntity.ok().body(edificios);
 	}
 	@PostMapping("edificios")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Edificios createEdificios(@RequestBody Edificios edificios) {
 		return edificiosRepository.save(edificios);
 	}
 	@PutMapping("edificios/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Edificios> updateEdificios(@PathVariable(value = "id") Long edificiosId,
 			@Valid @RequestBody Edificios edificiosDetails) throws ResourceNotFoundException {
 		Edificios edificios = edificiosRepository.findById(edificiosId)

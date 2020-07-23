@@ -21,19 +21,19 @@ public class SelectActivoService {
 	private ActivoRepository activoRepository;
 	
     @GetMapping("getinfo")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public List<SelectActivo> getJoinInformation(){
         return activoRepository.getJoinInformation();
     }
     
     @GetMapping("etiqueta")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public List<SelectActivo> getSelect(){
         return activoRepository.getSelect();
     }
     
     @GetMapping("id_activo")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public List<SelectActivo> getIdActivo(){
         return activoRepository.getIdActivo();
     }

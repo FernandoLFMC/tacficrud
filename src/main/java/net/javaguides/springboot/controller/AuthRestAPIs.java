@@ -1,6 +1,9 @@
 package net.javaguides.springboot.controller;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -15,11 +18,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.javaguides.springboot.exception.ResourceNotFoundException;
 import net.javaguides.springboot.message.request.LoginForm;
 import net.javaguides.springboot.message.request.SignUpForm;
 import net.javaguides.springboot.message.response.JwtResponse;
@@ -50,6 +57,26 @@ public class AuthRestAPIs {
 
     @Autowired
     JwtProvider jwtProvider;
+    
+    @GetMapping("/listuser")
+    @PreAuthorize("hasRole('ADMIN')")
+	public List<User> getAllActivos(User user){
+		return this.userRepository.findAll();
+	}
+    
+    @DeleteMapping("listuser/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+	public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userId)
+			throws ResourceNotFoundException {
+		User user = userRepository.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User no existe para este id :: " + userId));
+
+		this.userRepository.delete(user);
+		
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("deleted", Boolean.TRUE);
+		return response;
+	}
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {

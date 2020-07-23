@@ -32,13 +32,13 @@ public class SeccionService {
 	private SeccionRepository seccionRepository;
 	
 	@GetMapping("seccion")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN') or hasRole('PM')")
 	public List<Seccion> getAllSeccions(){
 		return this.seccionRepository.findAll();
 	}
 	
 	@GetMapping("seccion/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Seccion> getSeccionById(@PathVariable(value = "id") String seccionId)
 			throws ResourceNotFoundException {
 		Seccion seccion = seccionRepository.findById(seccionId)
@@ -47,13 +47,13 @@ public class SeccionService {
 	}
 	
 	@PostMapping("seccion")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Seccion createSeccion(@RequestBody Seccion seccion) {
 		return seccionRepository.save(seccion);
 	}
 
 	@PutMapping("seccion/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Seccion> updateSeccion(@PathVariable(value = "id") String seccionId,
 			@Valid @RequestBody Seccion seccionDetails) throws ResourceNotFoundException {
 		Seccion seccion = seccionRepository.findById(seccionId)
@@ -64,7 +64,7 @@ public class SeccionService {
 	}
 
 	@DeleteMapping("seccion/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Map<String, Boolean> deleteSeccion(@PathVariable(value = "id") String seccionId)
 			throws ResourceNotFoundException {
 		Seccion seccion = seccionRepository.findById(seccionId)

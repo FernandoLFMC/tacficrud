@@ -32,14 +32,14 @@ public class ProveedorService {
 	private ProveedorRepository proveedorRepository;
 	
 	@GetMapping("proveedor")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public List<Proveedor> getAllProveedors(){
 		return this.proveedorRepository.findAll();
 	}
 	
 	
 	@GetMapping("proveedor/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Proveedor> getProveedorById(@PathVariable(value = "id") Long proveedorId)
 			throws ResourceNotFoundException {
 		Proveedor proveedor = proveedorRepository.findById(proveedorId)
@@ -49,14 +49,14 @@ public class ProveedorService {
 
 	
 	@PostMapping("proveedor")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Proveedor createProveedor(@RequestBody Proveedor proveedor) {
 		return proveedorRepository.save(proveedor);
 	}
 
 	
 	@PutMapping("proveedor/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Proveedor> updateProveedor(@PathVariable(value = "id") Long proveedorId,
 			@Valid @RequestBody Proveedor proveedorDetails) throws ResourceNotFoundException {
 		Proveedor proveedor = proveedorRepository.findById(proveedorId)
@@ -70,7 +70,7 @@ public class ProveedorService {
 
 
 	@DeleteMapping("proveedor/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Map<String, Boolean> deleteProveedor(@PathVariable(value = "id") Long proveedorId)
 			throws ResourceNotFoundException {
 		Proveedor proveedor= proveedorRepository.findById(proveedorId)

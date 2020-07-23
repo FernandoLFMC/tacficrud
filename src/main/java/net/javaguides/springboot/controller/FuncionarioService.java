@@ -32,13 +32,13 @@ public class FuncionarioService {
 	private FuncionarioRepository funcionarioRepository;
 	
 	@GetMapping("funcionario")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public List<Funcionario> getAllFuncionarios(){
 		return this.funcionarioRepository.findAll();
 	}
 	
 	@GetMapping("funcionario/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Funcionario> getFuncionarioById(@PathVariable(value = "id") String funcionarioId)
 			throws ResourceNotFoundException {
 		Funcionario funcionario = funcionarioRepository.findById(funcionarioId)
@@ -48,14 +48,14 @@ public class FuncionarioService {
 
 	
 	@PostMapping("funcionario")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Funcionario createFuncionario(@RequestBody Funcionario funcionario) {
 		return funcionarioRepository.save(funcionario);
 	}
 
 	
 	@PutMapping("funcionario/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Funcionario> updateFuncionario(@PathVariable(value = "id") String funcionarioId,
 			@Valid @RequestBody Funcionario funcionarioDetails) throws ResourceNotFoundException {
 		Funcionario funcionario = funcionarioRepository.findById(funcionarioId)
@@ -68,7 +68,7 @@ public class FuncionarioService {
 
 	//delete employee
 	@DeleteMapping("funcionario/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Map<String, Boolean> deleteFuncionario(@PathVariable(value = "id") String funcionarioId)
 			throws ResourceNotFoundException {
 		Funcionario funcionario = funcionarioRepository.findById(funcionarioId)

@@ -35,13 +35,13 @@ public class ActivoService {
 
 	
 	@GetMapping("/activo")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER') or hasRole('PM')")
 	public List<Activo> getAllActivos(Activo acivo){
 		return this.activoRepository.findAll();
 	}
 
 	@GetMapping("/activo/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Activo> getActivoById(@PathVariable(value = "id") Long activoId)
 			throws ResourceNotFoundException {
 		Activo activo = activoRepository.findById(activoId)
@@ -51,14 +51,14 @@ public class ActivoService {
 	
 
 	@PostMapping("/activo")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Activo createActivo( @RequestBody Activo activo) {
 		return activoRepository.save(activo);
 	}
 
  
 	@PutMapping("/activo/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<Activo> updateActivo(@PathVariable(value = "id") Long activoId,
 			@Valid @RequestBody Activo activoDetails) throws ResourceNotFoundException {
 		Activo activo = activoRepository.findById(activoId)
@@ -76,10 +76,23 @@ public class ActivoService {
 		activo.setObservacion(activoDetails.getObservacion());
 		return ResponseEntity.ok(this.activoRepository.save(activo));
 	}
+	
+	@PutMapping("/infoactivo/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+	public ResponseEntity<Activo> infoActivo(@PathVariable(value = "id") Long activoId,
+			@Valid @RequestBody Activo activoDetails) throws ResourceNotFoundException {
+		Activo activo = activoRepository.findById(activoId)
+				.orElseThrow(() -> new ResourceNotFoundException("Activo no existe para este id :: " + activoId));
 
+
+		activo.setCod_seccion(activoDetails.getCod_seccion());
+		activo.setId_funcionario(activoDetails.getId_funcionario());
+		
+		return ResponseEntity.ok(this.activoRepository.save(activo));
+	}
 
 	@DeleteMapping("activo/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public Map<String, Boolean> deleteActivo(@PathVariable(value = "id") Long activoId)
 			throws ResourceNotFoundException {
 		Activo activo = activoRepository.findById(activoId)

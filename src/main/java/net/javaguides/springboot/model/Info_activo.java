@@ -28,17 +28,23 @@ public class Info_activo implements Serializable{
 	private Date fecha_movimiento;
 	@Column(name = "motivo")
 	private String motivo;
+	@Column(name = "funcionario_actual")
+	private String funcionario_actual;
+	@Column(name = "seccion_actual")
+	private String seccion_actual;
 	
 	public Info_activo() {
 		super();
 	}
-	public Info_activo(int id_activo,String funcionario_anterior, String seccion_anterior,Date fecha_movimineto, String motivo) {
+	public Info_activo(int id_activo,String funcionario_anterior, String seccion_anterior,Date fecha_movimineto, String motivo,String funcionario_actual, String seccion_actual) {
 		super();
 		this.id_activo = id_activo;
 		this.funcionario_anterior = funcionario_anterior;
 		this.seccion_anterior = seccion_anterior;
 		this.fecha_movimiento = fecha_movimineto;
 		this.motivo = motivo;
+		this.funcionario_actual = funcionario_actual;
+		this.seccion_actual = seccion_actual;
 	}
 	public long getId_info() {
 		return id_info;
@@ -79,7 +85,18 @@ public class Info_activo implements Serializable{
 		this.motivo = motivo;
 	}
 	
-
+	public String getFuncionario_actual() {
+		return funcionario_actual;
+	}
+	public void setFuncionario_actual(String funcionario_actual) {
+		this.funcionario_actual = funcionario_actual;
+	}
+	public String getSeccion_actual() {
+		return seccion_actual;
+	}
+	public void setSeccion_actual(String seccion_actual) {
+		this.seccion_actual = seccion_actual;
+	}
 	@Override
 	public String toString() {
 		return "Info_activo [id_info=" + id_info + ", id_activo=" + id_activo + ", funcionario_anterior="
