@@ -44,6 +44,13 @@ public class Activo implements Serializable{
 	private String estado_op_nop;
 	@Column(name = "observacion")
 	private String observacion;
+	@Column(name = "imagen")
+	private String imagen;
+	@Column(name = "vida_util")
+	private int vida_util;
+	@Column(name = "sujeto_depreciacion")
+	private String sujeto_depreciacion;
+	
 	
 	@OneToMany(targetEntity = Info_activo.class,
 			cascade = CascadeType.REMOVE)
@@ -90,7 +97,7 @@ public class Activo implements Serializable{
 
 	
 	public Activo(long id_activo, int id_cuenta, int id_coop, int cod_tipo, String cod_seccion, String id_funcionario,
-			String nombre_tipo, String descripcion, String unidad, String estado_op_nop, String observacion) {
+			String nombre_tipo, String descripcion, String unidad, String estado_op_nop, String observacion, String imagen, int vida_util, String sujeto_depreciacion) {
 		super();
 		this.id_activo = id_activo;
 		this.id_cuenta = id_cuenta;
@@ -103,6 +110,9 @@ public class Activo implements Serializable{
 		this.unidad = unidad;
 		this.estado_op_nop = estado_op_nop;
 		this.observacion = observacion;
+		this.imagen=imagen;
+		this.vida_util=vida_util;
+		this.sujeto_depreciacion=sujeto_depreciacion;
 	}
 
 
@@ -175,7 +185,31 @@ public class Activo implements Serializable{
 	public void setId_funcionario(String id_funcionario) {
 		this.id_funcionario = id_funcionario;
 	}
+	public String getImagen() {
+		return imagen;
+	}
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 
+	public int getVida_util() {
+		return vida_util;
+	}
+
+
+	public void setVida_util(int vida_util) {
+		this.vida_util = vida_util;
+	}
+
+	
+	public String getSujeto_depreciacion() {
+		return sujeto_depreciacion;
+	}
+
+
+	public void setSujeto_depreciacion(String sujeto_depreciacion) {
+		this.sujeto_depreciacion = sujeto_depreciacion;
+	}
 
 
 	public Mobiliarioenseres getMobiliarioenseres() {

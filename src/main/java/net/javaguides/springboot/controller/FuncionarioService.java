@@ -62,7 +62,14 @@ public class FuncionarioService {
 				.orElseThrow(() -> new ResourceNotFoundException("Funcionario no existe para este  id :: " + funcionarioId));
 
 		funcionario.setCod_seccion(funcionarioDetails.getCod_seccion());
+		funcionario.setId_coop(funcionarioDetails.getId_coop());
+		funcionario.setId_profesion(funcionarioDetails.getId_profesion());
+		funcionario.setCi(funcionarioDetails.getCi());
+		funcionario.setNombre(funcionarioDetails.getNombre());
+		funcionario.setAp_paterno(funcionarioDetails.getAp_paterno());
+		funcionario.setAp_materno(funcionarioDetails.getAp_materno());
 		funcionario.setCargo(funcionarioDetails.getCargo());
+		funcionario.setEstado(funcionarioDetails.getEstado());
 		return ResponseEntity.ok(this.funcionarioRepository.save(funcionario));
 	}
 

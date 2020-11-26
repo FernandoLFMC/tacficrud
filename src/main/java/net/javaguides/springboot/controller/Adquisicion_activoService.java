@@ -66,6 +66,7 @@ public class Adquisicion_activoService {
 		adquisicion_activo.setComprobante_contable(adquisicion_activoDetails.getComprobante_contable());
 		adquisicion_activo.setNro_factura(adquisicion_activoDetails.getNro_factura());
 		adquisicion_activo.setCosto_adquisicion(adquisicion_activoDetails.getCosto_adquisicion());
+		adquisicion_activo.setNit(adquisicion_activoDetails.getNit());
 		return ResponseEntity.ok(this.adquisicion_activoRepository.save(adquisicion_activo));
 	}
 

@@ -30,13 +30,15 @@ public class Funcionario {
 	private String ap_materno;
 	@Column(name = "cargo")
 	private String cargo;
+	@Column(name = "estado")
+	private String estado;
 	
 	
 	public Funcionario() {
 		super();
 	}
 	public Funcionario(String id_funcionario, String cod_seccion, int id_coop, int id_profesion, String ci,
-			String nombre, String ap_paterno, String ap_materno, String cargo) {
+			String nombre, String ap_paterno, String ap_materno, String cargo, String estado) {
 		super();
 		this.id_funcionario = id_funcionario;
 		this.cod_seccion = cod_seccion;
@@ -47,6 +49,7 @@ public class Funcionario {
 		this.ap_paterno = ap_paterno;
 		this.ap_materno = ap_materno;
 		this.cargo = cargo;
+		this.estado = estado;
 	}
 	public String getId_funcionario() {
 		return id_funcionario;
@@ -101,6 +104,12 @@ public class Funcionario {
 	}
 	public void setCargo(String cargo) {
 		this.cargo = cargo;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 	

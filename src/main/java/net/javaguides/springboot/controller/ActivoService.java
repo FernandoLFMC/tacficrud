@@ -74,6 +74,9 @@ public class ActivoService {
 		activo.setUnidad(activoDetails.getUnidad());
 		activo.setEstado_op_nop(activoDetails.getEstado_op_nop());
 		activo.setObservacion(activoDetails.getObservacion());
+		activo.setImagen(activoDetails.getImagen());
+		activo.setVida_util(activoDetails.getVida_util());
+		activo.setSujeto_depreciacion(activoDetails.getSujeto_depreciacion());
 		return ResponseEntity.ok(this.activoRepository.save(activo));
 	}
 	

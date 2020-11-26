@@ -1,7 +1,7 @@
 package net.javaguides.springboot.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "info_activo")
@@ -24,8 +28,12 @@ public class Info_activo implements Serializable{
 	private String funcionario_anterior;
 	@Column(name = "seccion_anterior")
 	private String seccion_anterior;
+	
+	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "fecha_movimiento")
-	private Date fecha_movimiento;
+	private Calendar fecha_movimiento;
+	
 	@Column(name = "motivo")
 	private String motivo;
 	@Column(name = "funcionario_actual")
@@ -36,7 +44,7 @@ public class Info_activo implements Serializable{
 	public Info_activo() {
 		super();
 	}
-	public Info_activo(int id_activo,String funcionario_anterior, String seccion_anterior,Date fecha_movimineto, String motivo,String funcionario_actual, String seccion_actual) {
+	public Info_activo(int id_activo,String funcionario_anterior, String seccion_anterior,Calendar fecha_movimineto, String motivo,String funcionario_actual, String seccion_actual) {
 		super();
 		this.id_activo = id_activo;
 		this.funcionario_anterior = funcionario_anterior;
@@ -71,10 +79,10 @@ public class Info_activo implements Serializable{
 	public void setSeccion_anterior(String seccion_anterior) {
 		this.seccion_anterior = seccion_anterior;
 	}
-	public Date getFecha_movimiento() {
+	public Calendar getFecha_movimiento() {
 		return fecha_movimiento;
 	}
-	public void setFecha_movimiento(Date fecha_movimiento) {
+	public void setFecha_movimiento(Calendar fecha_movimiento) {
 		this.fecha_movimiento = fecha_movimiento;
 	}
 

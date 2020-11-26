@@ -2,7 +2,7 @@ package net.javaguides.springboot.dto;
 
 
 
-import java.util.Date;
+import java.util.Calendar;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,11 +24,11 @@ public class SelectActivo {
 	private long id_info;
 	private String funcionario_anterior;
 	private String seccion_anterior;
-	private Date fecha_movimiento;
+	private Calendar fecha_movimiento;
 	private String estado_op_nop;
 	private String motivo;
 	
-    public SelectActivo(int cod_tipo,int id_cuenta,String funcionario_anterior, String seccion_anterior,Date fecha_movimiento,String motivo,String id_funcionario,String cod_seccion) {
+    public SelectActivo(int cod_tipo,int id_cuenta,String funcionario_anterior, String seccion_anterior,Calendar fecha_movimiento,String motivo,String id_funcionario,String cod_seccion) {
         this.cod_tipo= cod_tipo;
         this.id_cuenta=id_cuenta;
         this.funcionario_anterior=funcionario_anterior;
@@ -168,11 +168,11 @@ public class SelectActivo {
 		this.seccion_anterior = seccion_anterior;
 	}
 
-	public Date getFecha_movimiento() {
+	public Calendar getFecha_movimiento() {
 		return fecha_movimiento;
 	}
 
-	public void setFecha_movimiento(Date fecha_movimiento) {
+	public void setFecha_movimiento(Calendar fecha_movimiento) {
 		this.fecha_movimiento = fecha_movimiento;
 	}
 
@@ -193,9 +193,4 @@ public class SelectActivo {
 	}
 	
 
-	
-
-	
-	
-	
 }

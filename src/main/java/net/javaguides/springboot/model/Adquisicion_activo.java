@@ -1,6 +1,7 @@
 package net.javaguides.springboot.model;
 
-import java.sql.Date;
+
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 
 @Entity
@@ -20,8 +27,13 @@ public class Adquisicion_activo {
 	private String id_adquisicion;
 	@Column(name = "nit")
 	private int nit;
+	
+	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "fecha_adquisicion")
-	private Date fecha_adquisicion;
+	private Calendar fecha_adquisicion;
+	
+	
 	@Column(name = "comprobante_contable")
 	private int comprobante_contable;
 	@Column(name = "nro_factura")
@@ -36,7 +48,7 @@ public class Adquisicion_activo {
 	public Adquisicion_activo() {
 		super();
 	}
-	public Adquisicion_activo(long id_activo, String id_adquisicion, int nit, Date fecha_adquisicion,
+	public Adquisicion_activo(long id_activo, String id_adquisicion, int nit, Calendar fecha_adquisicion,
 			int comprobante_contable, int nro_factura, float costo_adquisicion) {
 		super();
 		this.id_activo = id_activo;
@@ -65,10 +77,10 @@ public class Adquisicion_activo {
 	public void setNit(int nit) {
 		this.nit = nit;
 	}
-	public Date getFecha_adquisicion() {
+	public Calendar getFecha_adquisicion() {
 		return fecha_adquisicion;
 	}
-	public void setFecha_adquisicion(Date fecha_adquisicion) {
+	public void setFecha_adquisicion(Calendar fecha_adquisicion) {
 		this.fecha_adquisicion = fecha_adquisicion;
 	}
 	public int getComprobante_contable() {

@@ -2,6 +2,8 @@ package net.javaguides.springboot.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,6 +12,7 @@ import javax.persistence.Table;
 public class Profesion {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY,generator = "id_profesion")
 	private long id_profesion;
 	@Column(name = "nomb_profesion")
 	private String nomb_profesion;
