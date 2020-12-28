@@ -57,6 +57,11 @@ public class Activo implements Serializable{
 	@JoinColumn(name = "id_activo",referencedColumnName = "id_activo")
 	private List<Info_activo> info_activo;
 	
+	@OneToMany(targetEntity = Imagenes.class,
+			cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "id_activo",referencedColumnName = "id_activo")
+	private List<Imagenes> imagenes;
+	
 	@OneToOne(targetEntity = Mobiliarioenseres.class,
 			cascade = CascadeType.ALL,
 			mappedBy = "activo")
@@ -279,6 +284,17 @@ public class Activo implements Serializable{
 
 	public void setAdquisicion_activo(Adquisicion_activo adquisicion_activo) {
 		this.adquisicion_activo = adquisicion_activo;
+	}
+
+	
+	
+	public List<Info_activo> getInfo_activo() {
+		return info_activo;
+	}
+
+
+	public List<Imagenes> getImagenes() {
+		return imagenes;
 	}
 
 

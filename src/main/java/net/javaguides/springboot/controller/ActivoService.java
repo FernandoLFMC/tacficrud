@@ -113,14 +113,14 @@ public class ActivoService {
 		Activo activo = activoRepository.findById(activoId)
 				.orElseThrow(() -> new ResourceNotFoundException("Activo no existe para este id :: " + activoId));
 		
-		String nombreFotoAnterior = activo.getImagen();
+		/*String nombreFotoAnterior = activo.getImagen();
 		if(nombreFotoAnterior != null && nombreFotoAnterior.length() > 0) {
 			Path rutaFotoAnterior = Paths.get("uploads").resolve(nombreFotoAnterior).toAbsolutePath();
 			File archivoFotoAnterior = rutaFotoAnterior.toFile();
 			if(archivoFotoAnterior.exists() && archivoFotoAnterior.canRead()) {
 				archivoFotoAnterior.delete();
 			}
-		}
+		}*/
 		
 		this.activoRepository.delete(activo);
 		
@@ -129,6 +129,7 @@ public class ActivoService {
 		return response;
 	}
 	
+	/*
 	@PostMapping("/activo/upload")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long activoId) throws ResourceNotFoundException {
@@ -192,5 +193,6 @@ public class ActivoService {
 		
 		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
 	}
+	*/
 
 }
